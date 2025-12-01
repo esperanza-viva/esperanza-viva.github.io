@@ -1,0 +1,680 @@
+/* --- Variables de Diseño --- */
+:root {
+    /* Updated professional palette */
+    --primary-color: #0b3d91;   /* deep blue */
+    --accent-color: #00b4d8;    /* bright cyan */
+    --accent-2: #7c3aed;        /* secondary accent/purple */
+    --muted-bg: #f5f7fb;        /* light neutral background for cards */
+    --card-glass: rgba(255,255,255,0.03);
+    --dark-color: #0b2030;      /* deeper page elements */
+    --text-color: #263238;      /* modern dark text */
+    --font-headings: 'Lora', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+/* --- New animation variables --- */
+:root {
+    --ease-in-out: cubic-bezier(0.2, 0.9, 0.2, 1);
+    --anim-fast: 260ms;
+    --anim-med: 420ms;
+    --anim-slow: 820ms;
+}
+
+/* subtle entrance animation */
+@keyframes fadeSlideUp {
+    0% { opacity: 0; transform: translateY(18px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subtlePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+}
+
+/* helper classes to quickly apply the entrance animation */
+.appear {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 360ms var(--ease-in-out), transform 360ms var(--ease-in-out);
+}
+.appear.visible {
+    opacity: 1;
+    transform: none;
+    animation: fadeSlideUp var(--anim-med) var(--ease-in-out) both;
+}
+.appear-slow { animation: fadeSlideUp var(--anim-slow) var(--ease-in-out) both; }
+.pulse { animation: subtlePulse 4s ease-in-out infinite; }
+
+/* --- Estilos Generales --- */
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    -webkit-font-smoothing:antialiased;
+}
+
+/* Global anchor / link styling to keep text color congruent */
+a { color: var(--primary-color); text-decoration: none; }
+.section-dark a { color: var(--accent-color); }
+
+/* Headings consistency */
+h1,h2,h3,h4,h5 { color: var(--dark-color); font-family: var(--font-headings); }
+h2 { font-weight: 700; }
+
+/* Accessibility: visible focus ring for keyboard users */
+:focus {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid rgba(0,180,216,0.22);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* Buttons focus style */
+.btn:focus-visible {
+    box-shadow: 0 6px 32px rgba(6,16,36,0.22), 0 0 0 4px rgba(0,180,216,0.14);
+}
+
+/* Anchors when keyboard focused */
+a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px; }
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 2rem;
+    overflow: hidden;
+}
+
+.section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    text-align: center;
+    font-family: var(--font-headings);
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+    font-size: 1.1rem;
+}
+
+.section-dark {
+    /* richer, modern dark gradient for contrast and a professional look */
+    background: linear-gradient(180deg, rgba(10,28,55,1), rgba(3,18,45,1));
+    color: #f6fbff;
+}
+
+.section-dark .section-title {
+    color: #fff;
+}
+
+/* --- Encabezado y Navegación --- */
+.main-header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--primary-color);
+    margin: 0;
+    text-decoration: none;
+}
+.logo img { display:block; max-height:56px; width:auto; 
+    /* Añadir padding y sombra para asegurar buena lectura de letras en PNGs con fondo transparente */
+    padding: 6px 8px; border-radius:8px; box-sizing: content-box;
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.45));
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+.logo-text { display:inline-flex; flex-direction:column; justify-content:center; margin-left:0.7rem; text-align:left; }
+.logo-line1 { font-family: var(--font-headings); font-weight:700; font-size:0.85rem; color:var(--primary-color); letter-spacing:0.4px; text-transform:uppercase; opacity:0.95; }
+.logo-line2 { font-family: var(--font-headings); font-weight:800; font-size:1.12rem; color: #001f2e; line-height:1; margin-top:2px; }
+
+@media (max-width:720px) {
+    .logo img { max-height:44px; }
+    .logo-line1 { font-size:0.65rem; }
+    .logo-line2 { font-size:0.85rem; }
+}
+
+/* small helper for visually-hidden text */
+.sr-only { position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0; clip:rect(0 0 0 0); overflow:hidden; }
+
+/* header small welcome that appears next to logo while hero heading is hidden */
+.header-welcome {
+    display: inline-block;
+    margin-left: 0.6rem;
+    font-family: var(--font-headings);
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    letter-spacing: 0.6px;
+    text-transform: none;
+    opacity: 1;
+    transition: opacity 220ms var(--ease-in-out), transform 220ms var(--ease-in-out);
+}
+.header-welcome.hidden { opacity: 0; transform: translateY(-6px); pointer-events:none; }
+
+@media (max-width:720px) {
+    .header-welcome { margin-left: 0.35rem; font-size: 0.78rem; }
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--accent-color);
+}
+
+/* --- Sección Hero (Bienvenida) --- */
+.hero {
+    /* Fondo: quitar el degradado azul por defecto – fondo claro para que el logo grande destaque */
+    /* Use customizable hero image (logo PNG requested) positioned left so text can sit next to it */
+     /* overlay gradient (sutil) + image
+         left-to-right fade to protect foreground text (can tweak with --hero-overlay) */
+    /* a little darker: increase alpha values so the left fade is stronger */
+    /* softer fade: longer, smoother transition from dark left to transparent right */
+    --hero-overlay: linear-gradient(90deg, rgba(0,12,34,0.96) 0%, rgba(0,12,34,0.78) 25%, rgba(0,12,34,0.45) 50%, rgba(0,12,34,0.20) 75%, rgba(0,12,34,0.02) 100%);
+     background-image: var(--hero-overlay), var(--hero-image, none);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover; /* hero image covers area */
+    background-color: #ffffff; /* neutral background so logo PNG reads well */
+    position: relative;
+    /* un poco más larga en desktop para que el logo se destaque arriba */
+    height: 110vh;
+    color: var(--dark-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.hero:before{ /* ligero overlay para mejorar contraste */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    pointer-events: none;
+}
+
+/* Mostrar el logo grande como marca de agua en el hero */
+/* previously used watermark for logo - removed so we can show the logo content directly */
+
+.hero-content { position: relative; z-index: 3; width: 100%; padding-left: 0; display:flex; flex-direction:column; justify-content:space-between; align-items:center; text-align:center; color: #fff; padding: 2.5rem 2rem; }
+
+.hero-top { width: 100%; min-height: 60%; }
+.hero-bottom { width: 100%; padding-bottom: 2.25rem; }
+.hero:before { z-index: 2; }
+
+.hero-content h2 {
+    font-family: var(--font-headings);
+    font-size: 4.6rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.02;
+    letter-spacing: -0.6px;
+    text-transform: none;
+    font-weight: 700;
+    text-shadow: none;
+    color: var(--primary-color);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 1.8rem;
+    max-width: 900px;
+    text-shadow: none;
+    color: var(--text-color);
+}
+
+/* Un parrafo principal en el hero (cuando no hay H2) para destacar el mensaje) */
+.hero-lead { font-size: 1.5rem; font-weight:600; opacity:0.98; }
+
+/* --- Hero brand (logo + text) --- */
+.hero-brand { display:flex; align-items:center; gap:1.2rem; justify-content:center; margin-bottom:1.2rem; }
+.hero-logo-large { width: 320px; height: auto; display:block; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.12)); }
+.hero-brand-text { text-align:left; }
+.brand-line1 { display:block; font-family: var(--font-headings); font-size:1.1rem; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.9); font-weight:700; }
+.brand-line2 { display:block; font-family: var(--font-headings); font-size:2.2rem; color:#fff; font-weight:800; margin-top:2px; }
+
+@media (max-width:900px) {
+    .hero { height: 80vh; padding: 2rem; background-position: center center; background-size: cover; }
+    .hero-content { width: 100%; padding-left: 0; align-items:center; text-align:center; }
+    .hero-logo-large { width: 220px; }
+    .brand-line2 { font-size:1.4rem; }
+    .hero-brand { flex-direction:column; gap:0.6rem; }
+}
+
+
+
+/* NOTE: .btn refined later in file to a more formal style */
+
+.btn:hover {
+    background-color: #005A9C;
+}
+
+/* --- Sección Sobre Nosotros --- */
+.about-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+
+.icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+/* --- Sección Horarios --- */
+.schedule-item {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.schedule-item h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+/* --- Sección Eventos --- */
+.event-item {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border-radius: 14px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 12px 30px rgba(5,20,40,0.12);
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: transform var(--anim-fast) var(--ease-in-out), box-shadow var(--anim-fast) var(--ease-in-out), filter var(--anim-fast) var(--ease-in-out);
+    overflow: hidden;
+}
+
+.event-item h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+/* --- Sección Contacto --- */
+.map-container {
+    position: relative;
+    padding-bottom: 65%; /* Aumentado para hacer el mapa un poco más grande */
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 18px 60px rgba(4,12,25,0.35);
+}
+.map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Contact info card inside contact section */
+.section-dark .contact-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 10px 40px rgba(3,12,28,0.2);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #e6f7ff; /* margin-top: 0.85rem; */
+}
+
+.section-dark .contact-card a { color: var(--accent-color); text-decoration: underline; font-weight:700; }
+
+/* nicer call-to-action button look */
+.btn {
+    display: inline-block;
+    background: linear-gradient(90deg, rgba(10,34,70,1), rgba(6,28,58,1));
+    color: #fff;
+    padding: 0.68rem 1.25rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 6px 22px rgba(6,16,36,0.12);
+    transition: transform var(--anim-fast) var(--ease-in-out), box-shadow var(--anim-fast) var(--ease-in-out), opacity var(--anim-fast);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(6,16,36,0.18); }
+
+/* small refinement for social cards and similar to match new look */
+.social-card { background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.92)); }
+
+/* --- Pie de Página --- */
+.main-footer {
+    background-color: var(--dark-color);
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.social-links a {
+    color: #fff;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+/* --- Efecto de Animación al Bajar (Scroll) --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Responsividad (para móviles) --- */
+@media (max-width: 768px) {
+    .main-header .container { flex-direction: column; }
+    .main-nav ul { flex-direction: column; text-align: center; padding-top: 1rem; }
+    .main-nav li { margin-bottom: 0.5rem; }
+    .hero-content h2 { font-size: 2.25rem; }
+    .hero-content p { font-size: 1.2rem; }
+    .about-columns { grid-template-columns: 1fr; }
+    .section-title { font-size: 2rem; }
+}
+
+/* ----------------------------- */
+/* Scroll progress, nav activo y animaciones adicionales */
+/* ----------------------------- */
+
+/* Barra de progreso de scroll */
+.progress-wrap {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    z-index: 3000;
+    pointer-events: none;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,var(--accent-color), #7dd3fc);
+    transition: width 0.12s linear;
+}
+
+/* Header al hacer scroll */
+.main-header.scrolled {
+    background: rgba(255,255,255,0.88);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    backdrop-filter: blur(4px);
+    transition: all 0.25s ease;
+}
+
+/* Otro tipo de animación */
+.slide-left { opacity: 0; transform: translateX(-24px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.slide-right { opacity: 0; transform: translateX(24px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.zoom-in { opacity: 0; transform: scale(0.96); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.fade-in.visible, .slide-left.visible, .slide-right.visible, .zoom-in.visible { opacity: 1; transform: none; }
+
+/* Soporte simple para 'stagger' aplicado desde JS */
+.stagger > * { opacity: 0; transform: translateY(12px); transition: opacity 0.65s ease-out, transform 0.65s ease-out; }
+.stagger > *.visible { opacity: 1; transform: none; }
+
+/* Estética de secciones */
+.section { padding: 5rem 0; }
+
+/* Hover sutil en tarjetas */
+.event-item, .schedule-item { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.event-item:hover {
+    transform: translateY(-8px) rotate(-0.01deg);
+    box-shadow: 0 20px 52px rgba(8,24,48,0.22);
+    filter: saturate(1.02) brightness(1.02);
+}
+
+/* Accent stripe for event date area (optional) */
+.event-item::before{ content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg,var(--accent-color), var(--accent-2)); border-radius: 14px 0 0 14px; box-shadow: inset 0 0 10px rgba(255,255,255,0.02); }
+
+/* Nav activo */
+.main-nav a.active { color: var(--accent-color); position: relative; }
+.main-nav a.active::after { content: ''; width: 100%; height: 3px; background: var(--accent-color); position: absolute; left: 0; bottom: -6px; border-radius: 3px; }
+
+/* Parallax helper (background-position animated by JS) */
+.hero { will-change: background-position, transform; }
+
+/* ----------------------------- */
+/* Redes sociales - sección grande */
+/* ----------------------------- */
+.social-section { text-align: center; }
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+    align-items: stretch;
+}
+
+/* Contact grid layout */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+/* Estilos para la tarjeta de contacto en tema claro */
+.contact-card {
+    background-color: #f8f9fa; /* Fondo gris muy claro */
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+}
+
+@media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* make section titles look more modern */
+.section-title { text-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+
+/* When a section is currently in view, highlight the section title using accent color */
+.section.in-view .section-title { color: var(--accent-color) !important; text-shadow: none; }
+.social-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+    border-radius: 14px;
+    padding: 1.6rem;
+    min-height: 180px;
+    box-shadow: 0 10px 28px rgba(11,22,40,0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.18s ease;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+.social-card:focus { outline: none; box-shadow: 0 10px 36px rgba(0,0,0,0.12); transform: translateY(-6px); }
+.social-card:hover { transform: translateY(-6px); filter: saturate(1.05); }
+.social-top { display:flex; gap: 1rem; align-items: center; }
+.social-icon { width: 72px; height: 72px; border-radius: 12px; display:flex; align-items:center; justify-content:center; font-size: 34px; flex-shrink:0; }
+.social-info h3 { margin: 0 0 6px 0; font-size:1.35rem; }
+.social-info p { margin:0; color:var(--text-color); font-size:0.98rem; }
+.social-cta { display:inline-block; background: transparent; border-radius: 9px; padding: 0.55rem 0.9rem; font-weight:700; cursor:pointer; }
+
+/* Variantes de color */
+.social-card.youtube { border-left: 6px solid #ff3b30; }
+.social-card.youtube .social-icon { background: linear-gradient(120deg,#ff3b30, #ff6a61); color: #fff; }
+.social-card.instagram { border-left: 6px solid #e1306c; }
+.social-card.instagram .social-icon { background: radial-gradient(circle at 30% 30%, #feda75, #e1306c 50%, #833ab4); color: #fff; }
+.social-card.facebook { border-left: 6px solid #1877f2; }
+.social-card.facebook .social-icon { background: linear-gradient(180deg,#1877f2,#4267b2); color: #fff; }
+
+/* Embedded video (YouTube) cuando se carga en la tarjeta */
+.social-embed { width: 100%; height: 260px; border-radius: 10px; border: none; margin-top: 1rem; }
+
+/* Small screens: 1 column */
+@media (max-width: 900px) {
+    .social-grid { grid-template-columns: 1fr; }
+    .social-embed { height: 220px; }
+}
+
+/* hero <img> (used only for mobile) - hidden on desktop */
+.imagen-fondo .hero-img {
+    display: none;
+    /* By default allow full width but keep aspect ratio. We'll add specific rules per breakpoint. */
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto; /* center */
+}
+
+/* fallback heading shown while the real heading is hidden */
+.hero-fallback {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    font-family: var(--font-headings);
+    font-size: 3.6rem;
+    color: rgba(255,255,255,0.95);
+    text-align: center;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 280ms var(--ease-in-out);
+    letter-spacing: -0.4px;
+    text-shadow: 0 6px 30px rgba(0,0,0,0.45);
+}
+.hero-fallback.hidden { opacity: 0; pointer-events: none; }
+
+@media (max-width: 900px) {
+    .hero-fallback { font-size: 2.4rem; top: 44%; }
+}
+@media (max-width: 480px) {
+    .hero-fallback { font-size: 1.8rem; top: 46%; }
+}
+
+/* Make the hero image/logo larger across mobile devices (phones and tablets) */
+/* Make the hero image/logo longer across mobile devices: tablets, phones and small phones.
+   Taller heights reduce the visible dark area under the hero and make the logo appear longer.
+   We use a single source of responsive rules here. */
+
+@media (max-width: 1024px) {
+    /* Tablets & large phones: increase the visual height of the image so less background shows below */
+    /* For tablets we'll show the inline <img> (same approach as phones) so the full logo
+       is visible instead of relying on a background cover that crops parts of it. */
+    .imagen-fondo {
+        background-image: none !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0;
+        display: flex;
+        align-items: center; /* center vertically in the available container */
+        justify-content: center;
+        max-height: calc(100vh - 72px) !important; /* limit container so image fits under header */
+        overflow: hidden; /* prevent overflow if image is taller */
+    }
+
+    .imagen-fondo .hero-img {
+        display: block !important;
+        width: auto !important;
+        max-width: 92% !important;          /* keep some space on sides */
+        height: 100% !important;            /* allow image to scale to container height */
+        object-fit: contain !important;     /* ensure the whole image is visible */
+    }
+    /* Efecto difuminado para la imagen del hero */
+    .imagen-fondo .hero-img { opacity: 1; filter: none; }
+}
+
+@media (max-width: 768px) {
+    /* Typical phones: make the hero much taller so the image appears longer and reduces dark area */
+    .imagen-fondo {
+        height: 140vh !important;       /* much taller than viewport */
+        background-size: cover !important;
+        background-position: center top !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* For phones: show the actual inline <img> so the logo is fully visible and not cropped */
+    /* show the inline image and make it always fully visible inside viewport */
+    .imagen-fondo { display:flex; align-items:flex-start; justify-content:center; }
+    .imagen-fondo .hero-img {
+        display: block !important;
+        width: 95% !important;
+        max-width: 640px !important;
+        height: auto !important;
+        /* ensure the image never grows taller than the visible area
+           - header approx 56-72px on phones; subtract a small margin so content after remains visible */
+        max-height: calc(100vh - 64px) !important;
+    }
+    /* remove top/bottom spacing so the hero sits just under the header */
+    .imagen-fondo { background-image: none !important; height: auto !important; padding: 0 0 !important; margin: 0; }
+    /* keep a little breathing room inside the text block but no top gap */
+    .contenido-bienvenida { padding: 10px 14px !important; margin-top: 0 !important; }
+}
+
+@media (max-width: 480px) {
+    /* Small phones: push the image even further to reduce any visible dark band underneath */
+    .imagen-fondo {
+        height: 160vh !important;       /* very tall container to make image visually longer */
+        background-size: cover !important;
+        background-position: center top !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* On small phones show the inline image instead of background so it appears complete */
+    .imagen-fondo { display:flex; align-items:flex-start; justify-content:center; }
+    .imagen-fondo .hero-img {
+        display: block !important;
+        width: 96% !important;
+        max-width: 480px !important;
+        height: auto !important;
+        max-height: calc(100vh - 56px) !important;
+    }
+    .imagen-fondo { background-image: none !important; height: auto !important; padding: 0 0 !important; margin: 0; }
+    .contenido-bienvenida { padding: 8px 12px !important; margin-top: 0 !important; }
+}

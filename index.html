@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CAMBIA ESTE TÍTULO -->
+    <title>Iglesia Esperanza Viva MCA</title>
+
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- favicon (most browsers support PNG favicons) -->
+    <link rel="icon" href="img/logo igle.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="img/logo igle.jpg" type="image/jpeg">
+
+    <!-- Iconos (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            /* Fondo azul oscuro para toda la página */
+            background-color: #ffffff; /* Fondo blanco para toda la página */
+            padding-top: 88px; /* Espacio para el header fijo. Ajusta este valor si cambia la altura del header. */
+            /* Color de texto base para toda la página para mejor legibilidad */
+            color: #212529; /* Color de texto oscuro principal */
+        }
+ 
+        #bienvenida {
+            /* La imagen del logotipo ahora es el fondo de toda la sección */
+            background-image: url('img/logotipo%20igle.jpg');
+            background-size: cover; /* Cubre el área disponible */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat;
+            height: 70vh; /* Altura en escritorio */
+            position: relative; /* Necesario para posicionar el separador de ola */
+            padding-bottom: 150px; /* Espacio para la ola. Ajusta si la ola es más alta. */
+            text-align: center; /* Centra el contenido como la imagen y el texto */
+        }
+ 
+        .contenido-bienvenida {
+            background-color: #ffffff; /* Asegura que el fondo sea blanco */
+            text-align: center;
+            padding: 60px 20px; /* Espacio para separar el texto de la imagen */
+        }
+ 
+        .contenido-bienvenida h2 {
+            color: #000000; /* Título principal en negro */
+            font-size: 4rem; /* Hacemos la letra aún más grande */
+            font-family: 'Lora', serif; /* Usamos una fuente más elegante para el título */
+            font-weight: 700;
+            margin-bottom: 1rem; /* Espacio debajo del título */
+        }
+ 
+        .contenido-bienvenida p {
+            color: #495057; /* Color de texto de párrafo más suave */
+        }
+ 
+        body {
+            font-family: 'Montserrat', sans-serif; /* Fuente base para toda la página */
+        }
+ 
+        /* --- Paleta de Colores Congruente --- */
+        .section-title {
+            color: #000000; /* Títulos de sección en negro */
+        }
+
+        .main-nav ul li a {
+            color: #ffffff; /* Color de texto del menú inicial (blanco) */
+            text-decoration: none; /* Quitamos el subrayado por defecto */
+            position: relative; /* Necesario para el pseudo-elemento */
+            padding-bottom: 8px; /* Espacio para la línea de animación */
+            transition: color 0.3s ease;
+        }
+ 
+        /* Animación de línea bajo el menú */
+        .main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #63b3ed; /* Un azul claro y profesional para el acento */
+            transition: width 0.3s ease-in-out;
+        }
+ 
+        .main-nav ul li a:hover {
+            color: #63b3ed; /* El color del texto cambia al mismo azul del acento */
+        }
+ 
+        .main-header {
+            position: fixed; /* Fija el header en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            transition: background-color 0.4s ease, box-shadow 0.4s ease; /* Transición suave */
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between; /* Alinea los elementos */
+            align-items: center;
+        }
+
+        .main-header.header-scrolled {
+            background-color: white; /* Fondo blanco al hacer scroll */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+        }
+
+        /* Cuando el header tiene fondo, los links cambian a oscuro */
+        .main-header.header-scrolled .main-nav ul li a {
+            color: #2d3748;
+        }
+
+        /* Estilos para el texto del logo */
+        .logo-text span {
+            color: #ffffff; /* Color inicial blanco */
+            transition: color 0.3s ease;
+        }
+        .main-header.header-scrolled .logo-text span {
+            color: #2d3748; /* Color oscuro al hacer scroll */
+        }
+
+        /* Estilos para el título que aparece en el header al hacer scroll */
+        .header-title {
+            font-family: 'Lora', serif; /* Fuente elegante */
+            font-size: 1.5rem;
+            color: #2d3748; /* Color oscuro para que se vea sobre el fondo blanco */
+            /* Oculto por defecto */
+            color: #ffffff; /* Color inicial blanco para que se vea sobre la imagen */
+            /* Visible por defecto */
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: auto;
+        }
+
+        /* Se oculta cuando el header tiene la clase .header-scrolled */
+        .main-header.header-scrolled .header-title {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            /* Asegura que no sea clickeable cuando está oculto */
+            pointer-events: none;
+        }
+
+        /* Se muestra cuando el header tiene la clase .header-scrolled */
+        .main-header.header-scrolled .header-title {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        
+        .main-nav ul li a:hover::after {
+            width: 100%; /* La línea se expande al 100% en hover */
+        }
+ 
+        /* --- Animaciones sutiles para interactividad --- */
+ 
+        /* Efecto para botones */
+        .btn, .social-cta {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover, .social-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 179, 237, 0.3); /* Sombra azulada sutil */
+        }
+
+        /* --- Animación de pulso para botones --- */
+        @keyframes pulse-animation {
+            0% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 6px 20px rgba(99, 179, 237, 0.3);
+            }
+            50% {
+                transform: scale(1.05) translateY(-3px); /* Ligeramente más grande y salta un poco */
+                box-shadow: 0 8px 30px rgba(99, 179, 237, 0.5); /* Sombra más pronunciada */
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 6px 20px rgba(99, 179, 237, 0.3);
+            }
+        }
+ 
+        /* --- Animación de salto para tarjetas --- */
+        @keyframes jump-animation {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px); /* Altura del salto */
+            }
+        }
+        .card-jump {
+            animation: jump-animation 2.2s infinite ease-in-out;
+        }
+
+        /* Efecto para iconos de la sección "Sobre Nosotros" */
+        .about-columns .icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .about-columns .column:hover .icon {
+            transform: scale(1.1);
+            color: #63b3ed; /* Cambia al color de acento azul */
+        }
+ 
+        /* Efecto para iconos sociales del pie de página */
+        .main-footer .social-links a {
+            color: #495057; /* Iconos del pie de página en gris oscuro */
+            transition: transform 0.3s ease, color 0.3s ease;
+            display: inline-block; /* Necesario para que la transformación funcione */
+        }
+ 
+        .main-footer .social-links a:hover {
+            transform: translateY(-3px);
+            color: #63b3ed; /* Azul claro para el hover */
+        }
+ 
+        /* --- Estilos de Secciones y Tarjetas --- */
+ 
+        /* Fondo para secciones oscuras */
+        .section-dark {
+            background-color: #f8f9fa; /* Un gris muy claro para diferenciar secciones */
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+ 
+        /* Tarjetas para redes sociales */
+        .social-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #dee2e6; /* Borde sutil para definir la tarjeta */
+        }
+ 
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+ 
+        /* Tarjetas para eventos */
+        .event-item {
+            background-color: #ffffff; /* Fondo blanco para las tarjetas de eventos */
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #dee2e6; /* Borde sutil */
+        }
+ 
+        /* --- Estilos para la nueva sección de Horarios --- */
+        .schedule-grid {
+            display: flex; /* Cambiado de grid a flex */
+            flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en nuevas líneas */
+            justify-content: center; /* Centra las tarjetas horizontalmente */
+            /* grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Rejilla responsive */
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .schedule-card {
+            background: #f8f9fa; /* Fondo gris muy claro para destacar sobre el blanco */
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .schedule-card .icon {
+            font-size: 2.5rem;
+            color: #63b3ed; /* Azul de acento */
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-card h3 {
+            color: #212529; /* Título oscuro */
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-card p {
+            color: #495057; /* Texto oscuro y suave */
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0.25rem 0;
+        }
+
+        /* Estilo para resaltar las horas */
+        .schedule-times {
+            background-color: #e3f2fd; /* Fondo azul muy claro */
+            border-radius: 8px;
+            padding: 1rem 0.5rem;
+            margin-top: 1rem;
+            font-weight: 700; /* Hacemos la fuente más gruesa */
+            font-size: 1.05rem; /* Ligeramente más grande */
+            color: #0b3d91; /* Color azul oscuro para el texto de la hora */
+        }
+
+        /* Ajuste para cuando hay múltiples bloques de horarios seguidos */
+        .schedule-times + .schedule-times {
+            margin-top: 0.5rem; /* Reduce el espacio entre bloques de horarios consecutivos */
+        }
+
+        /* --- Estilos del Pie de Página --- */
+        .main-footer {
+            background-color: #f8f9fa; /* Mismo gris claro que las secciones */
+            color: #495057; /* Texto del pie de página en gris oscuro */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+ 
+        /* Ajustes de color para texto dentro de elementos con fondo ahora claro */
+        .social-info h3, .social-info p, .event-item h3, .event-item p, .schedule-item h4, .schedule-item p, .contact-card p, .contact-card a {
+            color: #495057; /* Un gris oscuro más suave para el contenido de las tarjetas y secciones */
+        }
+
+        .event-item h3, .schedule-item h4 {
+            color: #212529; /* Hacemos los subtítulos un poco más oscuros para mayor jerarquía */
+        }
+
+        /* --- Animación de Fade-in al hacer Scroll --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px); /* El elemento empieza 30px más abajo */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0); /* Vuelve a su posición original */
+        }
+
+        /* Clase para aplicar la animación de pulso */
+        .btn-pulse {
+            animation: pulse-animation 1.8s infinite ease-in-out;
+        }
+
+        /* Retrasos para animación escalonada */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        /* --- Estilos para el Separador de Ola --- */
+        .wave-separator {
+            position: absolute;
+            /* shift the separator 1px down to avoid an anti-aliased seam/gap on some desktops */
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg); /* Gira la ola para que apunte hacia arriba */
+        }
+
+        .wave-separator svg {
+            position: relative; /* Cambiado a relativo */
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px; /* Altura de la ola, ajústala según necesites */
+        }
+
+        .wave-separator .shape-fill {
+            fill: #FFFFFF; /* Color de fondo de la siguiente sección (blanco) */
+        }
+
+
+    </style>
+ 
+    <!-- Estilos para Responsividad -->
+    <style>
+        /* Media Query para tablets y móviles (hasta 768px) */
+        @media (max-width: 768px) {
+            .main-header .container {
+                /* Apila el logo y la navegación verticalmente */
+                flex-direction: column;
+                gap: 1rem; /* Añade un espacio entre el logo y el menú */
+            }
+ 
+            .main-nav ul {
+                /* Apila los elementos del menú verticalmente */
+                flex-direction: column;
+                gap: 0.5rem; /* Espacio entre los elementos del menú */
+            }
+ 
+                /* NOTE: .imagen-fondo mobile sizing moved to style.css so there is a single source of truth
+                    for responsive hero sizing across devices. */
+
+            .contenido-bienvenida h2 {
+                /* Reduce el tamaño del título principal en móviles */
+                font-size: 2.5rem;
+            }
+ 
+            .about-columns {
+                /* Apila las columnas de "Nuestra Misión" */
+                flex-direction: column;
+                gap: 2rem; /* Espacio entre las columnas apiladas */
+            }
+ 
+            .social-grid {
+                /* Apila las tarjetas de redes sociales */
+                grid-template-columns: 1fr;
+            }
+ 
+            .main-footer .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            /* --- Estilos para el logotipo en móvil --- */
+            #bienvenida {
+                height: auto; /* La altura se ajusta al contenido */
+                min-height: 300px; /* Altura mínima para que se vea la imagen */
+                padding-top: 120px; /* Espacio para el header que ahora es más alto */
+                padding-bottom: 80px; /* Espacio para la ola */
+            }
+            .wave-separator svg {
+                height: 80px; /* Reduce la altura de la ola en móvil */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de progreso al hacer scroll -->
+    <div class="progress-wrap" aria-hidden="true">
+        <div class="progress-bar" id="scroll-progress"></div>
+    </div>
+
+    <header class="main-header" id="site-header">
+        <div class="container">
+            <!-- Logo de la iglesia: reemplaza img/logo.svg con tu logo si lo deseas -->
+            <a href="#bienvenida" class="logo" aria-label="Ir al inicio">
+                <img src="img/logo_igle-removebg-preview.png" alt="Iglesia Esperanza Viva - logo" width="160" height="48">
+                <div class="logo-text">
+                    <span class="logo-line1">Iglesia</span>
+                    <span class="logo-line2">Esperanza Viva MCA</span>
+                </div>
+                <span class="sr-only">Iglesia Esperanza Viva</span>
+            </a>
+
+            <!-- Título que aparece al hacer scroll -->
+            <div class="header-title" aria-hidden="true">
+                Bienvenidos a Casa
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#bienvenida">Inicio</a></li>
+                    <li><a href="#nosotros">Sobre Nosotros</a></li>
+                    <li><a href="#horarios">Horarios</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- SECCIÓN DE BIENVENIDA -->
+        <!-- Use a URL-encoded filename so browsers load the image reliably (space -> %20) -->
+        <section id="bienvenida" class="section-hero" style="padding-bottom: 100px; height: 60vh;">
+            <!-- Separador de Ola -->
+            <div class="wave-separator">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" style="bottom: -1px;">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+        <div class="contenido-bienvenida" style="padding-top: 40px; padding-bottom: 40px; margin-top: 0;">
+            <h2 class="fade-in">Bienvenidos a Casa</h2>
+            <p class="fade-in">Un lugar para encontrar fe, esperanza y comunidad.</p>
+            <a href="#contacto" class="btn fade-in btn-pulse">Visítanos</a>
+        </div>
+
+        <!-- SECCIÓN REDES SOCIALES -->
+        <section id="redes" class="container section social-section">
+            <!-- Se elimina el margen superior para que la sección comience justo después de la ola -->
+            <h2 class="section-title fade-in" style="margin-top: 0;">Síguenos en redes</h2>
+            <p class="section-intro fade-in">Encuentra nuestras predicaciones, fotos y transmisiones en vivo.</p>
+
+            <div class="social-grid">
+                <!-- YouTube (abre en nueva pestaña) -->
+                <a class="social-card youtube fade-in" href="https://www.youtube.com/@iglesiaesperanzavivamca6390" target="_blank" rel="noopener noreferrer" aria-label="Visitar YouTube">
+                    <div class="social-top">
+                        <div class="social-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="social-info">
+                            <h3>YouTube</h3>
+                            <p>Predicaciones y transmisiones en vivo.</p>
+                        </div>
+                    </div>
+                    <div class="social-action">
+                        <span class="social-cta btn-pulse">Visitar</span>
+                    </div>
+                </a>
+
+                <!-- Instagram (abre en nueva pestaña) -->
+                <a class="social-card instagram fade-in" href="https://www.instagram.com/esperanza_vivamca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram">
+                    <div class="social-top">
+                        <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="social-info">
+                            <h3>Instagram</h3>
+                            <p>Fotos de comunidad, eventos y momentos especiales.</p>
+                        </div>
+                    </div>
+                    <div class="social-action">
+                        <span class="social-cta btn-pulse">Visitar</span>
+                    </div>
+                </a>
+
+                <!-- Facebook (abre en nueva pestaña) -->
+                <a class="social-card facebook fade-in" href="https://www.facebook.com/IglesiaEsperanzaVivaMCA" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook">
+                    <div class="social-top">
+                        <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                        <div class="social-info">
+                            <h3>Facebook</h3>
+                            <p>Eventos, transmisiones y comunidad en Facebook.</p>
+                        </div>
+                    </div>
+                    <div class="social-action">
+                        <span class="social-cta btn-pulse">Visitar</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN SOBRE NOSOTROS -->
+        <section id="nosotros" class="container section">
+            <h2 class="section-title fade-in">Nuestra Misión</h2>
+            <!-- CAMBIA ESTE TEXTO -->
+            <p class="section-intro fade-in">Somos una comunidad comprometida con compartir el amor de Dios y servir a nuestro prójimo. Creemos en la transformación de vidas a través de la fe y la comunión.</p>
+            <div class="about-columns">
+                <div class="column">
+                    <i class="fas fa-cross icon"></i>
+                    <h3 class="fade-in">Nuestra Fe</h3>
+                    <p class="fade-in">Aquí puedes describir las creencias fundamentales de tu iglesia, los valores que los guían y su declaración de fe.</p>
+                </div>
+                <div class="column">
+                    <i class="fas fa-users icon"></i>
+                    <h3 class="fade-in">Nuestra Comunidad</h3>
+                    <p class="fade-in">Describe cómo es la comunidad de la iglesia, los grupos pequeños, las actividades para familias, jóvenes, etc.</p>
+                </div>
+                <div class="column">
+                    <i class="fas fa-hand-holding-heart icon"></i>
+                    <h3 class="fade-in">Nuestro Servicio</h3>
+                    <p class="fade-in">Menciona los ministerios de servicio, proyectos comunitarios o misiones en los que la iglesia está involucrada.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN HORARIOS -->
+        <section id="horarios" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in">Horarios de Servicios</h2>
+                <p class="section-intro fade-in">Acompáñanos en nuestros servicios semanales. ¡Todos son bienvenidos!</p>
+
+                <div class="schedule-grid">
+                    <!-- Tarjeta para Servicio Dominical -->
+                    <div class="schedule-card fade-in card-jump">
+                        <i class="fas fa-church icon"></i>
+                        <h3>Servicios Dominicales</h3>
+                        <p><strong>Domingos</strong></p>
+                        <div class="schedule-times">
+                            <p>08:30 AM - 09:45 AM</p>
+                        </div>
+                        <div class="schedule-times">
+                            <p>10:30 AM - 11:45 AM</p>
+                        </div>
+                        <div class="schedule-times">
+                            <p>03:30 PM - 04:45 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta para Servicio General -->
+                    <div class="schedule-card fade-in card-jump delay-1">
+                        <i class="fas fa-book-open icon"></i>
+                        <h3>Servicio General</h3>
+                        <p><strong>Martes</strong></p>
+                        <div class="schedule-times">
+                            <p>06:00 PM - 07:00 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta para Servicio de Adolescentes -->
+                    <div class="schedule-card fade-in card-jump delay-2">
+                        <i class="fas fa-users icon"></i>
+                        <h3>Servicio de Adolescentes</h3>
+                        <p><strong>Sábados</strong></p>
+                        <div class="schedule-times">
+                            <p>03:30 PM - 04:30 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta para Montaña de Oración -->
+                    <div class="schedule-card fade-in card-jump delay-3">
+                        <i class="fas fa-mountain icon"></i>
+                        <h3>Montaña de Oración</h3>
+                        <p><strong>Miércoles</strong></p>
+                        <div class="schedule-times">
+                            <!-- CAMBIA ESTA HORA -->
+                            <p>05:30 AM - 07:00 AM</p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta para Jóvenes Mayores -->
+                    <div class="schedule-card fade-in card-jump delay-4">
+                        <i class="fas fa-user-graduate icon"></i>
+                        <h3>Jóvenes Mayores</h3>
+                        <p><strong>Viernes</strong></p>
+                        <div class="schedule-times">
+                            <!-- CAMBIA ESTA HORA -->
+                            <p>06:00 PM - 08:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN EVENTOS -->
+        <section id="eventos" class="container section">
+            <h2 class="section-title fade-in">Próximos Eventos</h2>
+            <!-- CAMBIA O AÑADE MÁS EVENTOS -->
+            <div class="event-item fade-in">
+                <h3>Concierto de Alabanza</h3>
+                <p><strong>Fecha:</strong> 30 de Noviembre, 2023 | <strong>Hora:</strong> 6:00 PM</p>
+                <p>Una noche especial de música y adoración. ¡No te la pierdas!</p>
+            </div>
+            <div class="event-item fade-in">
+                <h3>Cena Comunitaria</h3>
+                <p><strong>Fecha:</strong> 15 de Diciembre, 2023 | <strong>Hora:</strong> 7:00 PM</p>
+                <p>Trae un platillo para compartir y disfruta de un tiempo de hermandad.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CONTACTO Y UBICACIÓN -->
+        <section id="contacto" class="section">
+            <div class="container">
+            <h2 class="section-title fade-in">Visítanos</h2>
+                <div class="contact-grid">
+                    <!-- Información de Contacto -->
+                    <div class="contact-card fade-in">
+                        <p><strong>Dirección: Segunda Av. Sur Barrio San José, San Juan Nonualco, La Paz Este, El Salvador.</strong> </p>
+                        <p>
+                            <strong>Email:</strong>
+                            <a href="mailto:ievmca90@gmail.com?subject=Quiero%20ir&body=Hola%2C%0A%0ADeseo%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20y%20horarios.%0A%0AGracias." title="Enviar email a ievmca90@gmail.com">ievmca90@gmail.com</a>
+                        </p>
+                        <p><strong>Teléfono:</strong> +503 2360-0510</p>
+                    </div>
+                    <!-- Mapa de Ubicación -->
+                    <div class="map-container fade-in">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3879.54904702577!2d-88.90044472507196!3d13.501862286864476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7cacfbf1ca63e3%3A0xaca36686653e1b8a!2sIglesia%20Esperanza%20Viva!5e0!3m2!1ses!2ssv!4v1764178667171!5m2!1ses!2ssv" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 | Iglesia Esperanza Viva.</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/IglesiaEsperanzaVivaMCA" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/esperanza_vivamca/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@iglesiaesperanzavivamca6390" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para animaciones -->
+    <!-- main.js añade animaciones al hacer scroll, barra de progreso y nav activo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Script para la animación de Fade-in ---
+            const fadeInElements = document.querySelectorAll('.fade-in');
+
+            const observerOptions = {
+                root: null, // Observa en relación con el viewport
+                rootMargin: '0px',
+                threshold: 0.1 // Se activa cuando el 10% del elemento es visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // Si el elemento está en la pantalla
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible'); // Añade la clase para animarlo
+                        observer.unobserve(entry.target); // Deja de observarlo para que la animación no se repita
+                    }
+                });
+            }, observerOptions);
+
+            // Observa cada elemento con la clase .fade-in
+            fadeInElements.forEach(el => observer.observe(el));
+
+            // --- Script para el header que cambia con el scroll ---
+            const header = document.getElementById('site-header');
+            // Altura a la que el header cambiará de estilo (ej. 50px)
+            const scrollThreshold = 50; 
+
+            const handleScroll = () => {
+                if (window.scrollY > scrollThreshold) {
+                    // Si el scroll es mayor que el umbral, añade la clase
+                    header.classList.add('header-scrolled');
+                } else {
+                    // Si no, la quita
+                    header.classList.remove('header-scrolled');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
+</body>
+</html>

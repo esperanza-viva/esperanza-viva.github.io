@@ -153,11 +153,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Eventos
     window.addEventListener('scroll', onScroll, { passive: true });
 
+    // --- Lógica para Menú Móvil (Hamburguesa) ---
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const siteHeader = document.getElementById('site-header');
+    const menuOverlay = document.querySelector('.menu-overlay');
+
+    const toggleMenu = () => {
+        siteHeader.classList.toggle('menu-open');
+        menuOverlay.classList.toggle('active');
+        // Actualizar accesibilidad
+        const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+        hamburgerBtn.setAttribute('aria-expanded', !isExpanded);
+    };
+
+    if (hamburgerBtn && siteHeader && menuOverlay) {
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+    }
+
     // Hacer que los enlaces del nav tengan scroll suave y cierren mobile menu si existiera
     navLinks.forEach(a => {
         a.addEventListener('click', (e) => {
             // si el enlace tiene hash, se hace smooth scroll nativo
             // cerrar menú en móviles si fuera necesario (no hay menú JS aquí, pero es útil para ampliar)
+            if (siteHeader && siteHeader.classList.contains('menu-open')) {
+                toggleMenu();
+            }
         });
     });
 

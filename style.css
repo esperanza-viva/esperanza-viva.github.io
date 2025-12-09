@@ -7,8 +7,7 @@
     --muted-bg: #f5f7fb;        /* light neutral background for cards */
     --card-glass: rgba(255,255,255,0.03);
     --dark-color: #0b2030;      /* deeper page elements */
-    --text-color: #263238;      /* modern dark text */
-    --font-headings: 'Lora', serif;
+    --text-color: #263238;      /* modern dark text */    --font-headings: 'Montserrat', sans-serif;
     --font-body: 'Montserrat', sans-serif;
 }
 
@@ -100,7 +99,7 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
     text-align: center;
     font-family: var(--font-headings);
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--dark-color);
     margin-bottom: 1rem;
 }
 
@@ -123,12 +122,15 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 
 /* --- Encabezado y Navegación --- */
 .main-header {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+    background-color: transparent; /* Transparente por defecto */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil para visibilidad */
     padding: 1rem 0;
-    position: sticky;
+    position: fixed; /* Cambiado a fixed para que siempre esté arriba */
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease; /* Transición suave */
 }
 
 .main-header .container {
@@ -154,7 +156,7 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 
 .logo-text { display:inline-flex; flex-direction:column; justify-content:center; margin-left:0.7rem; text-align:left; }
 .logo-line1 { font-family: var(--font-headings); font-weight:700; font-size:0.85rem; color:var(--primary-color); letter-spacing:0.4px; text-transform:uppercase; opacity:0.95; }
-.logo-line2 { font-family: var(--font-headings); font-weight:800; font-size:1.12rem; color: #001f2e; line-height:1; margin-top:2px; }
+.logo-line2 { font-family: var(--font-headings); font-weight:800; font-size:1.12rem; color: #fff; line-height:1; margin-top:2px; transition: color 0.4s ease; }
 
 @media (max-width:720px) {
     .logo img { max-height:44px; }
@@ -192,12 +194,12 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 }
 
 .main-nav a {
-    color: #000000; /* Color de texto siempre negro */
+    color: #ffffff; /* Color de texto blanco por defecto */
     text-decoration: none;
     padding: 1rem; /* Aumentamos el padding para que la barra no se sienta tan pegada */
     font-weight: bold;
-    transition: color 0.3s ease;
     position: relative; /* Necesario para la barra animada */
+    transition: color 0.4s ease;
 }
 
 /* Barra animada que aparece al pasar el ratón o cuando el enlace está activo */
@@ -215,7 +217,7 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 
 .main-nav a:hover, .main-nav a.active {
     /* El color del texto no cambia, solo aparece la barra inferior */
-    color: #000000;
+    color: #ffffff;
 }
 
 /* --- Sección Hero (Bienvenida) --- */
@@ -325,25 +327,59 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 .schedule-item h4 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--accent-color);
+    color: var(--dark-color);
 }
 
 /* --- Sección Eventos --- */
 .event-item {
     position: relative;
-    background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    display: flex; /* Usamos flexbox para alinear la fecha y los detalles */
+    align-items: center; /* Centramos verticalmente */
+    gap: 1.5rem; /* Espacio entre la fecha y los detalles */
+    background: #fff; /* Fondo blanco para que resalte en cualquier sección */
     border-radius: 14px;
-    padding: 1.6rem 1.8rem;
+    padding: 1.5rem;
     margin-bottom: 1rem;
-    box-shadow: 0 12px 30px rgba(5,20,40,0.12);
-    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+    border: 1px solid #e0e0e0;
     transition: transform var(--anim-fast) var(--ease-in-out), box-shadow var(--anim-fast) var(--ease-in-out), filter var(--anim-fast) var(--ease-in-out);
     overflow: hidden;
 }
 
+.event-date {
+    flex-shrink: 0; /* Evita que el bloque de fecha se encoja */
+    width: 80px;
+    text-align: center;
+    background-color: var(--muted-bg);
+    border-radius: 10px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    font-family: var(--font-headings);
+}
+
+.event-month {
+    display: block;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.25rem;
+    border-radius: 6px 6px 0 0;
+    text-transform: uppercase;
+}
+
+.event-day {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    line-height: 1.1;
+    padding-top: 0.25rem;
+}
+
 .event-item h3 {
     margin-top: 0;
-    color: var(--primary-color);
+    color: var(--dark-color);
     font-weight: 700;
     letter-spacing: 0.2px;
 }
@@ -564,10 +600,19 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 
 /* Header al hacer scroll */
 .main-header.scrolled {
-    background: rgba(255,255,255,0.88);
+    background: rgba(255,255,255,0.98);
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    backdrop-filter: blur(4px);
-    transition: all 0.25s ease;
+    backdrop-filter: blur(5px);
+    border-bottom-color: #ddd;
+}
+
+.main-header.scrolled .logo-line2,
+.main-header.scrolled .main-nav a {
+    color: var(--dark-color); /* Texto oscuro sobre fondo blanco */
+}
+
+.main-header.scrolled #hamburger-btn span {
+    background-color: var(--dark-color); /* Icono de hamburguesa oscuro */
 }
 
 /* Otro tipo de animación */
@@ -628,9 +673,32 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 /* Estilos para la tarjeta de contacto en tema claro */
 .contact-card {
     background-color: #f8f9fa; /* Fondo gris muy claro */
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 12px;
     border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio entre los items de contacto */
+}
+
+.contact-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-info-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-top: 0.25rem;
+    width: 25px; /* Ancho fijo para alinear el texto */
+    text-align: center;
 }
 
 @media (max-width: 900px) {
@@ -640,41 +708,85 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
 /* make section titles look more modern */
 .section-title { text-shadow: 0 1px 0 rgba(0,0,0,0.06); }
 
-/* When a section is currently in view, highlight the section title using accent color */
-.section.in-view .section-title { color: var(--accent-color) !important; text-shadow: none; }
 .social-card {
+    position: relative; /* Necesario para el efecto de brillo */
+    overflow: hidden; /* Oculta el brillo que se sale de la tarjeta */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+    justify-content: center; /* Centra el contenido verticalmente */
+    background: rgba(255, 255, 255, 0.05); /* Fondo de vidrio translúcido */
     border-radius: 14px;
     padding: 1.6rem;
-    min-height: 180px;
-    box-shadow: 0 10px 28px rgba(11,22,40,0.06);
+    min-height: 220px; /* Aumentamos la altura mínima */
+    box-shadow: 0 10px 28px rgba(0,0,0,0.2); /* Sombra más pronunciada */
     text-decoration: none;
-    color: inherit;
-    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.18s ease;
+    color: #fff; /* Texto blanco para que contraste con el fondo oscuro */
+    transition: transform 0.3s var(--ease-in-out), box-shadow 0.3s var(--ease-in-out), background 0.3s ease;
     cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+    backdrop-filter: blur(8px); /* Efecto de desenfoque para el "vidrio" */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Efecto de brillo que sigue al cursor */
+.social-card::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 0);
+    left: var(--x, 0);
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* Asegura que no interfiera con el clic */
+}
+
+.social-card:hover::before {
+    opacity: 1;
+}
+
+/* La tarjeta de YouTube no tendrá el efecto de brillo, sino el de expansión */
+.social-card.youtube:hover::before {
+    opacity: 0;
 }
 .social-card:focus { outline: none; box-shadow: 0 10px 36px rgba(0,0,0,0.12); transform: translateY(-6px); }
-.social-card:hover { transform: translateY(-6px); filter: saturate(1.05); }
-.social-top { display:flex; gap: 1rem; align-items: center; }
+.social-card:hover { 
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+}
+.social-top { display:flex; flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
 .social-icon { width: 72px; height: 72px; border-radius: 12px; display:flex; align-items:center; justify-content:center; font-size: 34px; flex-shrink:0; }
 .social-info h3 { margin: 0 0 6px 0; font-size:1.35rem; }
-.social-info p { margin:0; color:var(--text-color); font-size:0.98rem; }
-.social-cta { display:inline-block; background: transparent; border-radius: 9px; padding: 0.55rem 0.9rem; font-weight:700; cursor:pointer; }
+.social-info p { margin:0; color: rgba(255,255,255,0.8); font-size:0.98rem; }
+.social-cta { display:none; /* Ocultamos el texto "Visitar" que ya no es necesario */ }
 
-/* Variantes de color */
-.social-card.youtube { border-left: 6px solid #ff3b30; }
+/* Variantes de color y estilos para la previsualización de YouTube */
+.social-card.youtube { border-left: 6px solid #ff3b30; min-height: 220px; justify-content: flex-start; }
 .social-card.youtube .social-icon { background: linear-gradient(120deg,#ff3b30, #ff6a61); color: #fff; }
 .social-card.instagram { border-left: 6px solid #e1306c; }
 .social-card.instagram .social-icon { background: radial-gradient(circle at 30% 30%, #feda75, #e1306c 50%, #833ab4); color: #fff; }
 .social-card.facebook { border-left: 6px solid #1877f2; }
 .social-card.facebook .social-icon { background: linear-gradient(180deg,#1877f2,#4267b2); color: #fff; }
 
-/* Embedded video (YouTube) cuando se carga en la tarjeta */
-.social-embed { width: 100%; height: 260px; border-radius: 10px; border: none; margin-top: 1rem; }
+/* Estilos para el video de YouTube incrustado */
+.social-embed {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0; /* Inicia con altura 0 */
+    border: none;
+    opacity: 0;
+    transition: height 0.4s var(--ease-in-out), opacity 0.4s var(--ease-in-out) 0.1s;
+}
+
+/* Al pasar el ratón por la tarjeta de YouTube, el video aparece */
+.social-card.youtube:hover .social-embed {
+    height: 80%; /* El video ocupa el 80% de la altura de la tarjeta */
+    opacity: 1;
+}
 
 /* Small screens: 1 column */
 @media (max-width: 900px) {
@@ -682,10 +794,9 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
     .social-embed { height: 220px; }
 }
 
-/* hero <img> (used only for mobile) - hidden on desktop */
+/* hero <img> - visible por defecto y centrado */
 .imagen-fondo .hero-img {
-    display: none;
-    /* By default allow full width but keep aspect ratio. We'll add specific rules per breakpoint. */
+    display: block;
     width: auto;
     max-width: 100%;
     height: auto;
@@ -776,6 +887,21 @@ a:focus-visible { box-shadow: 0 0 0 4px rgba(0,180,216,0.10); border-radius: 4px
     .imagen-fondo { background-image: none !important; height: auto !important; padding: 0 0 !important; margin: 0; }
     /* keep a little breathing room inside the text block but no top gap */
     .contenido-bienvenida { padding: 10px 14px !important; margin-top: 0 !important; }
+}
+
+/* --- Transición Suave Entre Secciones (Efecto de Barrido) --- */
+@keyframes section-clip-reveal {
+    from {
+        clip-path: inset(0 100% 0 0); /* Inicia completamente recortado desde la derecha */
+    }
+    to {
+        clip-path: inset(0 0 0 0); /* Termina completamente visible */
+    }
+}
+
+/* Aplica la animación a cada sección cuando entra en el viewport */
+.section.in-view {
+    animation: section-clip-reveal 1s cubic-bezier(0.77, 0, 0.175, 1) both;
 }
 
 @media (max-width: 480px) {

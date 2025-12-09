@@ -111,12 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const id = entry.target.id;
-            // toggle nav active
+            // Si la sección está en el viewport, actualiza el enlace de navegación activo
             if (entry.isIntersecting) {
                 navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
             }
-            // also toggle a class on the section so CSS can style section headings when in view
-            entry.target.classList.toggle('in-view', entry.isIntersecting);
+            // Activa/desactiva la clase para que la animación se repita al entrar y salir
+            entry.target.classList.toggle('is-visible', entry.isIntersecting);
         });
     }, { root: null, rootMargin: '-35% 0px -45% 0px', threshold: 0 });
 

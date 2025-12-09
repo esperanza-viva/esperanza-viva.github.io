@@ -18,7 +18,7 @@
     <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
 
     <!-- Estilos personalizados -->
     <style>
@@ -51,8 +51,8 @@
         .contenido-bienvenida h2 {
             color: #000000; /* Título principal en negro */
             font-size: 4rem; /* Hacemos la letra aún más grande */
-            font-family: 'Lora', serif; /* Usamos una fuente más elegante para el título */
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif; /* Fuente moderna para el título */
+            font-weight: 800; /* Un peso más grueso para impacto */
             margin-bottom: 1rem; /* Espacio debajo del título */
         }
  
@@ -67,54 +67,6 @@
         /* --- Paleta de Colores Congruente --- */
         .section-title {
             color: #000000; /* Títulos de sección en negro */
-        }
-
-        .main-header {
-            position: fixed; /* Fija el header en la parte superior */
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000; /* Asegura que esté por encima de todo */
-            transition: background-color 0.4s ease, box-shadow 0.4s ease; /* Transición suave */
-        }
-
-        .main-header .container {
-            display: flex;
-            justify-content: space-between; /* Alinea los elementos */
-            align-items: center;
-        }
-
-        .main-header.header-scrolled {
-            background-color: white; /* Fondo blanco al hacer scroll */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
-        }
-
-        /* Cuando el header tiene fondo, los links cambian a oscuro */
-        .main-header.header-scrolled .main-nav ul li a {
-            color: #2d3748;
-        }
-
-        /* Estilos para el texto del logo */
-        .logo-text span {
-            color: #ffffff; /* Color inicial blanco */
-            transition: color 0.3s ease;
-        }
-        .main-header.header-scrolled .logo-text span {
-            color: #2d3748; /* Color oscuro al hacer scroll */
-        }
-
-        /* Estilos para el título que aparece en el header al hacer scroll */
-        .header-title {
-            font-family: 'Lora', serif; /* Fuente elegante */
-            font-size: 1.5rem;
-            color: #2d3748; /* Color oscuro para que se vea sobre el fondo blanco */
-            /* Oculto por defecto */
-            color: #ffffff; /* Color inicial blanco para que se vea sobre la imagen */
-            /* Visible por defecto */
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            pointer-events: auto;
         }
 
         /* Se oculta cuando el header tiene la clase .header-scrolled */
@@ -415,11 +367,6 @@
                 <span class="sr-only">Iglesia Esperanza Viva</span>
             </a>
 
-            <!-- Título que aparece al hacer scroll -->
-            <div class="header-title" aria-hidden="true">
-                Bienvenidos a Casa
-            </div>
-
             <!-- Botón de Hamburguesa (solo para móvil) -->
             <button id="hamburger-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
                 <span></span>
@@ -450,20 +397,20 @@
             </div>
         </section>
         <div class="contenido-bienvenida" style="padding-top: 40px; padding-bottom: 40px; margin-top: 0;">
-            <h2 class="fade-in">Bienvenidos a Casa</h2>
-            <p class="fade-in">Un lugar para encontrar fe, esperanza y comunidad.</p>
-            <a href="#contacto" class="btn fade-in btn-pulse">Visítanos</a>
+            <h2 class="appear">Bienvenidos a Casa</h2>
+            <p class="appear">Un lugar para encontrar fe, esperanza y comunidad.</p>
+            <a href="#contacto" class="btn appear btn-pulse">Visítanos</a>
         </div>
 
         <!-- SECCIÓN REDES SOCIALES -->
-        <section id="redes" class="container section social-section">
+        <section id="redes" class="section social-section section-dark">
             <!-- Se elimina el margen superior para que la sección comience justo después de la ola -->
-            <h2 class="section-title fade-in" style="margin-top: 0;">Síguenos en redes</h2>
-            <p class="section-intro fade-in">Encuentra nuestras predicaciones, fotos y transmisiones en vivo.</p>
+            <h2 class="section-title appear" style="margin-top: 0;">Síguenos en redes</h2>
+            <p class="section-intro appear">Encuentra nuestras predicaciones, fotos y transmisiones en vivo.</p>
 
-            <div class="social-grid">
+            <div class="social-grid stagger">
                 <!-- YouTube (abre en nueva pestaña) -->
-                <a class="social-card youtube fade-in" href="https://www.youtube.com/@iglesiaesperanzavivamca6390" target="_blank" rel="noopener noreferrer" aria-label="Visitar YouTube">
+                <a class="social-card youtube" href="https://www.youtube.com/@iglesiaesperanzavivamca6390" target="_blank" rel="noopener noreferrer" aria-label="Visitar YouTube">
                     <div class="social-top">
                         <div class="social-icon"><i class="fab fa-youtube"></i></div>
                         <div class="social-info">
@@ -477,7 +424,7 @@
                 </a>
 
                 <!-- Instagram (abre en nueva pestaña) -->
-                <a class="social-card instagram fade-in" href="https://www.instagram.com/esperanza_vivamca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram">
+                <a class="social-card instagram" href="https://www.instagram.com/esperanza_vivamca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram">
                     <div class="social-top">
                         <div class="social-icon"><i class="fab fa-instagram"></i></div>
                         <div class="social-info">
@@ -491,7 +438,7 @@
                 </a>
 
                 <!-- Facebook (abre en nueva pestaña) -->
-                <a class="social-card facebook fade-in" href="https://www.facebook.com/IglesiaEsperanzaVivaMCA" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook">
+                <a class="social-card facebook" href="https://www.facebook.com/IglesiaEsperanzaVivaMCA" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook">
                     <div class="social-top">
                         <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
                         <div class="social-info">
@@ -508,24 +455,24 @@
 
         <!-- SECCIÓN SOBRE NOSOTROS -->
         <section id="nosotros" class="container section">
-            <h2 class="section-title fade-in">Nuestra Misión</h2>
+            <h2 class="section-title">Nuestra Misión</h2>
             <!-- CAMBIA ESTE TEXTO -->
-            <p class="section-intro fade-in">Somos una comunidad comprometida con compartir el amor de Dios y servir a nuestro prójimo. Creemos en la transformación de vidas a través de la fe y la comunión.</p>
-            <div class="about-columns">
+            <p class="section-intro">Somos una comunidad comprometida con compartir el amor de Dios y servir a nuestro prójimo. Creemos en la transformación de vidas a través de la fe y la comunión.</p>
+            <div class="about-columns stagger">
                 <div class="column">
                     <i class="fas fa-cross icon"></i>
-                    <h3 class="fade-in">Nuestra Fe</h3>
-                    <p class="fade-in">Aquí puedes describir las creencias fundamentales de tu iglesia, los valores que los guían y su declaración de fe.</p>
+                    <h3>Nuestra Fe</h3>
+                    <p>Aquí puedes describir las creencias fundamentales de tu iglesia, los valores que los guían y su declaración de fe.</p>
                 </div>
                 <div class="column">
                     <i class="fas fa-users icon"></i>
-                    <h3 class="fade-in">Nuestra Comunidad</h3>
-                    <p class="fade-in">Describe cómo es la comunidad de la iglesia, los grupos pequeños, las actividades para familias, jóvenes, etc.</p>
+                    <h3>Nuestra Comunidad</h3>
+                    <p>Describe cómo es la comunidad de la iglesia, los grupos pequeños, las actividades para familias, jóvenes, etc.</p>
                 </div>
                 <div class="column">
                     <i class="fas fa-hand-holding-heart icon"></i>
-                    <h3 class="fade-in">Nuestro Servicio</h3>
-                    <p class="fade-in">Menciona los ministerios de servicio, proyectos comunitarios o misiones en los que la iglesia está involucrada.</p>
+                    <h3>Nuestro Servicio</h3>
+                    <p>Menciona los ministerios de servicio, proyectos comunitarios o misiones en los que la iglesia está involucrada.</p>
                 </div>
             </div>
         </section>
@@ -533,12 +480,12 @@
         <!-- SECCIÓN HORARIOS -->
         <section id="horarios" class="section">
             <div class="container">
-                <h2 class="section-title fade-in">Horarios de Servicios</h2>
-                <p class="section-intro fade-in">Acompáñanos en nuestros servicios semanales. ¡Todos son bienvenidos!</p>
+                <h2 class="section-title">Horarios de Servicios</h2>
+                <p class="section-intro">Acompáñanos en nuestros servicios semanales. ¡Todos son bienvenidos!</p>
 
-                <div class="schedule-grid">
+                <div class="schedule-grid stagger">
                     <!-- Tarjeta para Servicio Dominical -->
-                    <div class="schedule-card fade-in card-jump">
+                    <div class="schedule-card card-jump">
                         <i class="fas fa-church icon"></i>
                         <h3>Servicios Dominicales</h3>
                         <p><strong>Domingos</strong></p>
@@ -554,7 +501,7 @@
                     </div>
 
                     <!-- Tarjeta para Servicio General -->
-                    <div class="schedule-card fade-in card-jump delay-1">
+                    <div class="schedule-card card-jump">
                         <i class="fas fa-book-open icon"></i>
                         <h3>Servicio General</h3>
                         <p><strong>Martes</strong></p>
@@ -564,7 +511,7 @@
                     </div>
 
                     <!-- Tarjeta para Servicio de Adolescentes -->
-                    <div class="schedule-card fade-in card-jump delay-2">
+                    <div class="schedule-card card-jump">
                         <i class="fas fa-users icon"></i>
                         <h3>Servicio de Adolescentes</h3>
                         <p><strong>Sábados</strong></p>
@@ -574,7 +521,7 @@
                     </div>
 
                     <!-- Tarjeta para Montaña de Oración -->
-                    <div class="schedule-card fade-in card-jump delay-3">
+                    <div class="schedule-card card-jump">
                         <i class="fas fa-mountain icon"></i>
                         <h3>Montaña de Oración</h3>
                         <p><strong>Miércoles</strong></p>
@@ -585,7 +532,7 @@
                     </div>
 
                     <!-- Tarjeta para Jóvenes Mayores -->
-                    <div class="schedule-card fade-in card-jump delay-4">
+                    <div class="schedule-card card-jump">
                         <i class="fas fa-user-graduate icon"></i>
                         <h3>Jóvenes Mayores</h3>
                         <p><strong>Viernes</strong></p>
@@ -600,36 +547,66 @@
 
         <!-- SECCIÓN EVENTOS -->
         <section id="eventos" class="container section">
-            <h2 class="section-title fade-in">Próximos Eventos</h2>
-            <!-- CAMBIA O AÑADE MÁS EVENTOS -->
-            <div class="event-item fade-in">
-                <h3>Concierto de Alabanza</h3>
-                <p><strong>Fecha:</strong> 30 de Noviembre, 2023 | <strong>Hora:</strong> 6:00 PM</p>
-                <p>Una noche especial de música y adoración. ¡No te la pierdas!</p>
-            </div>
-            <div class="event-item fade-in">
-                <h3>Cena Comunitaria</h3>
-                <p><strong>Fecha:</strong> 15 de Diciembre, 2023 | <strong>Hora:</strong> 7:00 PM</p>
-                <p>Trae un platillo para compartir y disfruta de un tiempo de hermandad.</p>
+            <h2 class="section-title">Próximos Eventos</h2>
+            <div class="events-list stagger">
+                <!-- CAMBIA O AÑADE MÁS EVENTOS -->
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="event-month">Nov</span>
+                        <span class="event-day">30</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Concierto de Alabanza</h3>
+                        <p><strong>Hora:</strong> 6:00 PM</p>
+                        <p>Una noche especial de música y adoración. ¡No te la pierdas!</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="event-month">Dic</span>
+                        <span class="event-day">15</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Cena Comunitaria</h3>
+                        <p><strong>Hora:</strong> 7:00 PM</p>
+                        <p>Trae un platillo para compartir y disfruta de un tiempo de hermandad.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- SECCIÓN CONTACTO Y UBICACIÓN -->
         <section id="contacto" class="section">
             <div class="container">
-            <h2 class="section-title fade-in">Visítanos</h2>
-                <div class="contact-grid">
+            <h2 class="section-title">Visítanos</h2>
+                <div class="contact-grid stagger">
                     <!-- Información de Contacto -->
-                    <div class="contact-card fade-in">
-                        <p><strong>Dirección: Segunda Av. Sur Barrio San José, San Juan Nonualco, La Paz Este, El Salvador.</strong> </p>
-                        <p>
-                            <strong>Email:</strong>
-                            <a href="mailto:ievmca90@gmail.com?subject=Quiero%20ir&body=Hola%2C%0A%0ADeseo%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20y%20horarios.%0A%0AGracias." title="Enviar email a ievmca90@gmail.com">ievmca90@gmail.com</a>
-                        </p>
-                        <p><strong>Teléfono:</strong> +503 2360-0510</p>
+                    <div class="contact-card">
+                        <h3>Información de Contacto</h3>
+                        <div class="contact-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Dirección</strong>
+                                <p>Segunda Av. Sur Barrio San José, San Juan Nonualco, La Paz Este, El Salvador.</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p><a href="mailto:ievmca90@gmail.com?subject=Consulta%20desde%20el%20sitio%20web">ievmca90@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <strong>Teléfono</strong>
+                                <p><a href="tel:+50323600510">+503 2360-0510</a></p>
+                            </div>
+                        </div>
                     </div>
                     <!-- Mapa de Ubicación -->
-                    <div class="map-container fade-in">
+                    <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3879.54904702577!2d-88.90044472507196!3d13.501862286864476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7cacfbf1ca63e3%3A0xaca36686653e1b8a!2sIglesia%20Esperanza%20Viva!5e0!3m2!1ses!2ssv!4v1764178667171!5m2!1ses!2ssv" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
@@ -650,48 +627,6 @@
 
     <!-- Script para animaciones -->
     <!-- main.js añade animaciones al hacer scroll, barra de progreso y nav activo -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Script para la animación de Fade-in ---
-            const fadeInElements = document.querySelectorAll('.fade-in');
-
-            const observerOptions = {
-                root: null, // Observa en relación con el viewport
-                rootMargin: '0px',
-                threshold: 0.1 // Se activa cuando el 10% del elemento es visible
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    // Si el elemento está en la pantalla
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible'); // Añade la clase para animarlo
-                        observer.unobserve(entry.target); // Deja de observarlo para que la animación no se repita
-                    }
-                });
-            }, observerOptions);
-
-            // Observa cada elemento con la clase .fade-in
-            fadeInElements.forEach(el => observer.observe(el));
-
-            // --- Script para el header que cambia con el scroll ---
-            const header = document.getElementById('site-header');
-            // Altura a la que el header cambiará de estilo (ej. 50px)
-            const scrollThreshold = 50; 
-
-            const handleScroll = () => {
-                if (window.scrollY > scrollThreshold) {
-                    // Si el scroll es mayor que el umbral, añade la clase
-                    header.classList.add('header-scrolled');
-                } else {
-                    // Si no, la quita
-                    header.classList.remove('header-scrolled');
-                }
-            };
-
-            window.addEventListener('scroll', handleScroll);
-        });
-    </script>
 
     <!-- Carga el script principal que contiene la lógica del menú de hamburguesa -->
     <script src="main.js"></script>
